@@ -5,16 +5,18 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
+    port: 5175, // Ensure your local server runs on this port
     proxy: {
       "/spline-design": {
         target: "https://my.spline.design",
         changeOrigin: true,
         secure: false,
-        logLevel: "debug"
-      }
-    }
-  }
-})
+        rewrite: (path) => path.replace(/^\/spline-design/, ""),
+        logLevel: "debug",
+      },
+    },
+  },
+});
 
 
 
